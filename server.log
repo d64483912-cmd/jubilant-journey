@@ -1222,3 +1222,54 @@ Import traces:
  GET / 200 in 281ms
  GET / 200 in 277ms
  GET / 200 in 732ms
+ GET / 200 in 267ms
+ ✓ Compiled in 126ms
+ ✓ Compiled in 161ms
+ ✓ Compiled in 150ms
+ ⨯ ./app/layout.tsx:1:32
+Parsing ecmascript source code failed
+[0m[31m[1m>[22m[39m[90m 1 |[39m [36mimport[39m type { [33mMetadata[39m } [36mfrom[39m [37m[41m[1m\[22m[49m[39m[32m"next\";[39m
+ [90m   |[39m                                [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 2 |[39m [36mimport[39m { [33mInter[39m } [36mfrom[39m [37m[41m[1m\[22m[49m[39m[32m"next/font/google\";[39m
+ [90m 3 |[39m [36mimport[39m [37m[41m[1m\[22m[49m[39m[32m"./globals.css\";[39m
+ [90m 4 |[39m [36mimport[39m { [33mProviders[39m } [36mfrom[39m [37m[41m[1m\[22m[49m[39m[32m"@/components/providers\";[39m[0m
+
+Unterminated string constant
+
+
+
+./components/sections/SettingsScreen.tsx:43:21
+Parsing ecmascript source code failed
+[0m [90m 41 |[39m
+ [90m 42 |[39m   [36mreturn[39m (
+[31m[1m>[22m[39m[90m 43 |[39m     [33m<[39m[33mdiv[39m className[33m=[39m[37m[41m[1m\[22m[49m[39m[32m"flex flex-col h-screen bg-background p-6\">[39m
+ [90m    |[39m                     [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 44 |[39m       [33m<[39m[33mheader[39m className[33m=[39m[37m[41m[1m\[22m[49m[39m[32m"mb-10\">[39m
+ [90m 45 |[39m         [33m<[39m[33mh1[39m className[33m=[39m[37m[41m[1m\[22m[49m[39m[32m"text-3xl font-black tracking-tight text-foreground mb-2\">App <span className=\"text-primary\">Settings</span></h1>[39m
+ [90m 46 |[39m         [33m<[39m[33mp[39m className[33m=[39m[37m[41m[1m\[22m[49m[39m[32m"text-muted-foreground text-sm font-medium\">Personalize your Nelson-GPT experience</p>[39m[0m
+
+Unterminated string constant
+
+Import traces:
+  Client Component Browser:
+    ./components/sections/SettingsScreen.tsx [Client Component Browser]
+    ./app/page.tsx [Client Component Browser]
+    ./app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./components/sections/SettingsScreen.tsx [Client Component SSR]
+    ./app/page.tsx [Client Component SSR]
+    ./app/page.tsx [Server Component]
+
+
+ GET / 500 in 178ms
+ GET /favicon.ico 500 in 79ms
+ ✓ Compiled in 739ms
+ ✓ Compiled in 342ms
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ✓ Compiled / in 45ms
+ GET / 200 in 704ms
+ GET / 200 in 133ms
+ GET /favicon.ico?favicon.bf3c9292.ico 200 in 304ms
+ GET / 200 in 180ms
+ GET / 200 in 224ms

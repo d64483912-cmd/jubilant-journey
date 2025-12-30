@@ -10,7 +10,7 @@ import Image from 'next/image'
 
 export function WelcomeScreen({ onStartChat }: { onStartChat: (query: string) => void }) {
   const [input, setInput] = useState('')
-  const { mode, setMode } = useChatStore()
+  const { mode, setMode, settings } = useChatStore()
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -102,19 +102,21 @@ export function WelcomeScreen({ onStartChat }: { onStartChat: (query: string) =>
         </form>
       </motion.div>
 
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1 }}
-        className="mt-12 max-w-lg text-center"
-      >
-        <p className="text-[11px] text-muted-foreground/60 leading-relaxed uppercase tracking-widest font-bold">
-          Medical Disclaimer
-        </p>
-        <p className="mt-2 text-[10px] text-muted-foreground/50 leading-relaxed">
-          Nelson-GPT is an AI assistant for educational purposes only. It is not a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of your physician or other qualified health provider.
-        </p>
-      </motion.div>
+      {settings.showDisclaimers && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1 }}
+          className="mt-12 max-w-lg text-center"
+        >
+          <p className="text-[11px] text-muted-foreground/60 leading-relaxed uppercase tracking-widest font-bold">
+            Medical Disclaimer
+          </p>
+          <p className="mt-2 text-[10px] text-muted-foreground/50 leading-relaxed">
+            Nelson-GPT is an AI assistant for educational purposes only. It is not a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of your physician or other qualified health provider.
+          </p>
+        </motion.div>
+      )}
     </div>
   )
 }

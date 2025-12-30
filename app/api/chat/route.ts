@@ -10,22 +10,32 @@ export async function POST(req: Request) {
   }
 
   const client = new Mistral({ apiKey })
-  const { messages, mode } = await req.json()
+  const { messages, mode, aiStyle } = await req.json()
   const lastMessage = messages[messages.length - 1].content
 
   try {
     const citations = await getRelevantChunks(lastMessage)
     const context = citations.map(c => `Source: Nelson Textbook, Ch ${c.chapter}, p. ${c.page}: ${c.content}`).join('\n\n')
 
+    const styleInstruction = {
+      concise: "Be extremely concise and direct. Provide only the most essential information.",
+      detailed: "Provide a comprehensive and detailed explanation covering all relevant aspects.",
+      evidence: "Focus heavily on clinical evidence, studies, and specific textbook references. Be very thorough with citations."
+    }[aiStyle as 'concise' | 'detailed' | 'evidence'] || "Provide a balanced, professional response."
+
     const systemPrompt = mode === 'academic' 
       ? `You are Nelson-GPT, a sophisticated pediatric knowledge assistant. Provide evidence-based, academic responses inspired by the Nelson Textbook of Pediatrics. Use formal medical terminology. 
       
+      ${styleInstruction}
+
       Use the following context from Nelson Textbook to inform your answer:
       ${context}
       
       Cite the sources using [1], [2], etc. corresponding to the context provided.`
       : `You are Nelson-GPT, a clinical pediatric assistant. Provide practical, actionable clinical guidance for healthcare professionals. Focus on diagnosis, management, and dosing.
       
+      ${styleInstruction}
+
       Use the following context from Nelson Textbook to inform your answer:
       ${context}
       
@@ -44,7 +54,6 @@ export async function POST(req: Request) {
 
     const stream = new ReadableStream({
       async start(controller) {
-        // Send citations first as a special chunk
         controller.enqueue(new TextEncoder().encode(`__CITATIONS__:${JSON.stringify(citations)}__END_CITATIONS__`))
         
         for await (const chunk of response) {

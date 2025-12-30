@@ -16,7 +16,7 @@ import {
 import Image from 'next/image'
 
 export function ChatInterface({ onBack }: { onBack: () => void }) {
-  const { messages, isStreaming, addMessage, mode, setStreaming } = useChatStore()
+  const { messages, isStreaming, addMessage, mode, setStreaming, settings } = useChatStore()
   const [input, setInput] = useState('')
   const scrollRef = useRef<HTMLDivElement>(null)
 
@@ -46,7 +46,7 @@ export function ChatInterface({ onBack }: { onBack: () => void }) {
       const response = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: [...messages, userMsg], mode }),
+        body: JSON.stringify({ messages: [...messages, userMsg], mode, aiStyle: settings.aiStyle }),
       })
 
       if (!response.ok) throw new Error("Failed to fetch")

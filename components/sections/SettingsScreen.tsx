@@ -13,8 +13,32 @@ import {
   SelectTrigger, 
   SelectValue 
 } from '@/components/ui/select'
+import { useChatStore } from '@/store/useChatStore'
+import { useTheme } from 'next-themes'
+import { toast } from 'sonner'
 
 export function SettingsScreen() {
+  const { settings, updateSettings, clearMessages } = useChatStore()
+  const { setTheme, theme } = useTheme()
+
+  const handleExport = () => {
+    const data = JSON.stringify(useChatStore.getState().messages, null, 2)
+    const blob = new Blob([data], { type: 'application/json' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = 'nelson-gpt-consultations.json'
+    a.click()
+    toast.success('Data exported successfully')
+  }
+
+  const handleSignOut = () => {
+    if (confirm('Are you sure you want to sign out? This will clear your local session.')) {
+      clearMessages()
+      window.location.reload()
+    }
+  }
+
   return (
     <div className="flex flex-col h-screen bg-background p-6">
       <header className="mb-10">
@@ -30,13 +54,15 @@ export function SettingsScreen() {
               <div className="flex items-center justify-between p-5 bg-white rounded-[24px] border border-border premium-shadow">
                 <div className="flex items-center gap-4">
                   <div className="w-10 h-10 rounded-xl bg-primary/5 flex items-center justify-center">
-                    <Sun className="w-5 h-5 text-primary" />
+                    {theme === 'dark' ? <Moon className="w-5 h-5 text-primary" /> : <Sun className="w-5 h-5 text-primary" />}
                   </div>
-                  <Label className="font-bold text-base">Theme Mode</Label>
+                  <Label className="font-bold text-base">Dark Mode</Label>
                 </div>
                 <div className="flex items-center gap-3">
-                  <span className="text-xs font-bold text-muted-foreground uppercase tracking-wider">Light</span>
-                  <Switch />
+                  <Switch 
+                    checked={theme === 'dark'} 
+                    onCheckedChange={(checked) => setTheme(checked ? 'dark' : 'light')} 
+                  />
                 </div>
               </div>
               <div className="flex items-center justify-between p-5 bg-white rounded-[24px] border border-border premium-shadow">
@@ -46,7 +72,10 @@ export function SettingsScreen() {
                   </div>
                   <Label className="font-bold text-base">Font Size</Label>
                 </div>
-                <Select defaultValue="medium">
+                <Select 
+                  value={settings.fontSize} 
+                  onValueChange={(val: any) => updateSettings({ fontSize: val })}
+                >
                   <SelectTrigger className="w-32 rounded-xl border-border bg-background font-bold text-xs uppercase tracking-wider">
                     <SelectValue />
                   </SelectTrigger>
@@ -70,7 +99,10 @@ export function SettingsScreen() {
                   </div>
                   <Label className="font-bold text-base">Response Style</Label>
                 </div>
-                <Select defaultValue="detailed">
+                <Select 
+                  value={settings.aiStyle} 
+                  onValueChange={(val: any) => updateSettings({ aiStyle: val })}
+                >
                   <SelectTrigger className="w-32 rounded-xl border-border bg-background font-bold text-xs uppercase tracking-wider">
                     <SelectValue />
                   </SelectTrigger>
@@ -86,9 +118,12 @@ export function SettingsScreen() {
                   <div className="w-10 h-10 rounded-xl bg-primary/5 flex items-center justify-center">
                     <Shield className="w-5 h-5 text-primary" />
                   </div>
-                  <Label className="font-bold text-base">Medical Safety</Label>
+                  <Label className="font-bold text-base">Show Disclaimers</Label>
                 </div>
-                <Switch defaultChecked />
+                <Switch 
+                  checked={settings.showDisclaimers} 
+                  onCheckedChange={(checked) => updateSettings({ showDisclaimers: checked })} 
+                />
               </div>
             </div>
           </section>
@@ -96,7 +131,11 @@ export function SettingsScreen() {
           <section className="space-y-4">
             <h2 className="text-[10px] font-black text-muted-foreground uppercase tracking-[0.2em] px-2">Data & Privacy</h2>
             <div className="space-y-3">
-              <Button variant="outline" className="w-full justify-between p-5 h-auto rounded-[24px] border-border bg-white premium-shadow hover:bg-primary/5 group">
+              <Button 
+                variant="outline" 
+                onClick={handleExport}
+                className="w-full justify-between p-5 h-auto rounded-[24px] border-border bg-white premium-shadow hover:bg-primary/5 group"
+              >
                 <div className="flex items-center gap-4">
                   <div className="w-10 h-10 rounded-xl bg-primary/5 flex items-center justify-center">
                     <Download className="w-5 h-5 text-primary" />
@@ -105,7 +144,11 @@ export function SettingsScreen() {
                 </div>
                 <ChevronRight className="w-5 h-5 text-muted-foreground/30 group-hover:text-primary transition-colors" />
               </Button>
-              <Button variant="outline" className="w-full justify-between p-5 h-auto rounded-[24px] border-border bg-white premium-shadow hover:bg-destructive/5 group text-destructive hover:text-destructive">
+              <Button 
+                variant="outline" 
+                onClick={handleSignOut}
+                className="w-full justify-between p-5 h-auto rounded-[24px] border-border bg-white premium-shadow hover:bg-destructive/5 group text-destructive hover:text-destructive"
+              >
                 <div className="flex items-center gap-4">
                   <div className="w-10 h-10 rounded-xl bg-destructive/5 flex items-center justify-center">
                     <LogOut className="w-5 h-5 text-destructive" />
