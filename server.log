@@ -1273,3 +1273,11 @@ Import traces:
  GET /favicon.ico?favicon.bf3c9292.ico 200 in 304ms
  GET / 200 in 180ms
  GET / 200 in 224ms
+ GET / 200 in 953ms
+ ✓ Compiled in 343ms
+ ✓ Compiled in 288ms
+ ✓ Compiled in 260ms
+ ✓ Compiled in 233ms
+ ✓ Compiled in 309ms
+ ✓ Compiled in 335ms
+ ✓ Compiled in 276ms

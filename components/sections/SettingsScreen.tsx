@@ -2,7 +2,7 @@
 
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { motion } from 'framer-motion'
-import { Moon, Sun, Type, Brain, Shield, Info, LogOut, Download, ChevronRight } from 'lucide-react'
+import { Moon, Sun, Type, Brain, Shield, Info, LogOut, Download, ChevronRight, Sparkles } from 'lucide-react'
 import { Switch } from '@/components/ui/switch'
 import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
@@ -40,85 +40,86 @@ export function SettingsScreen() {
   }
 
   return (
-    <div className="flex flex-col h-screen bg-background p-6">
-      <header className="mb-10">
-        <h1 className="text-3xl font-black tracking-tight text-foreground mb-2">App <span className="text-primary">Settings</span></h1>
-        <p className="text-muted-foreground text-sm font-medium">Personalize your Nelson-GPT experience</p>
+    <div className="flex flex-col h-screen bg-background p-8">
+      <header className="mb-12">
+        <div className="flex items-center gap-3 mb-3">
+          <Sparkles className="w-5 h-5 text-primary" />
+          <span className="text-[10px] font-black uppercase tracking-[0.3em] text-primary">System Configuration</span>
+        </div>
+        <h1 className="text-5xl font-black tracking-tighter text-gradient">Settings</h1>
       </header>
 
-      <ScrollArea className="flex-1 -mx-2 px-2">
-        <div className="space-y-10 max-w-2xl pb-32">
-          <section className="space-y-4">
-            <h2 className="text-[10px] font-black text-muted-foreground uppercase tracking-[0.2em] px-2">Appearance</h2>
-            <div className="space-y-3">
-              <div className="flex items-center justify-between p-5 bg-white rounded-[24px] border border-border premium-shadow">
-                <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 rounded-xl bg-primary/5 flex items-center justify-center">
-                    {theme === 'dark' ? <Moon className="w-5 h-5 text-primary" /> : <Sun className="w-5 h-5 text-primary" />}
+      <ScrollArea className="flex-1 -mx-4 px-4">
+        <div className="space-y-12 max-w-2xl pb-40">
+          <section className="space-y-6">
+            <h2 className="text-[11px] font-black text-muted-foreground/40 uppercase tracking-[0.3em] px-4">Appearance</h2>
+            <div className="space-y-4">
+              <div className="flex items-center justify-between p-6 bg-white rounded-[32px] border border-primary/5 premium-shadow">
+                <div className="flex items-center gap-5">
+                  <div className="w-12 h-12 rounded-[20px] bg-primary/5 flex items-center justify-center">
+                    {theme === 'dark' ? <Moon className="w-6 h-6 text-primary" /> : <Sun className="w-6 h-6 text-primary" />}
                   </div>
-                  <Label className="font-bold text-base">Dark Mode</Label>
+                  <Label className="font-black text-lg tracking-tight">Dark Mode</Label>
                 </div>
-                <div className="flex items-center gap-3">
-                  <Switch 
-                    checked={theme === 'dark'} 
-                    onCheckedChange={(checked) => setTheme(checked ? 'dark' : 'light')} 
-                  />
-                </div>
+                <Switch 
+                  checked={theme === 'dark'} 
+                  onCheckedChange={(checked) => setTheme(checked ? 'dark' : 'light')} 
+                />
               </div>
-              <div className="flex items-center justify-between p-5 bg-white rounded-[24px] border border-border premium-shadow">
-                <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 rounded-xl bg-primary/5 flex items-center justify-center">
-                    <Type className="w-5 h-5 text-primary" />
+              <div className="flex items-center justify-between p-6 bg-white rounded-[32px] border border-primary/5 premium-shadow">
+                <div className="flex items-center gap-5">
+                  <div className="w-12 h-12 rounded-[20px] bg-primary/5 flex items-center justify-center">
+                    <Type className="w-6 h-6 text-primary" />
                   </div>
-                  <Label className="font-bold text-base">Font Size</Label>
+                  <Label className="font-black text-lg tracking-tight">Font Size</Label>
                 </div>
                 <Select 
                   value={settings.fontSize} 
                   onValueChange={(val: any) => updateSettings({ fontSize: val })}
                 >
-                  <SelectTrigger className="w-32 rounded-xl border-border bg-background font-bold text-xs uppercase tracking-wider">
+                  <SelectTrigger className="w-36 h-12 rounded-2xl border-primary/10 bg-background font-black text-[10px] uppercase tracking-widest">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent className="rounded-xl">
-                    <SelectItem value="small">Small</SelectItem>
-                    <SelectItem value="medium">Medium</SelectItem>
-                    <SelectItem value="large">Large</SelectItem>
+                  <SelectContent className="rounded-2xl glass border-primary/10">
+                    <SelectItem value="small" className="font-bold text-xs uppercase tracking-wider">Small</SelectItem>
+                    <SelectItem value="medium" className="font-bold text-xs uppercase tracking-wider">Medium</SelectItem>
+                    <SelectItem value="large" className="font-bold text-xs uppercase tracking-wider">Large</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
             </div>
           </section>
 
-          <section className="space-y-4">
-            <h2 className="text-[10px] font-black text-muted-foreground uppercase tracking-[0.2em] px-2">AI Intelligence</h2>
-            <div className="space-y-3">
-              <div className="flex items-center justify-between p-5 bg-white rounded-[24px] border border-border premium-shadow">
-                <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 rounded-xl bg-primary/5 flex items-center justify-center">
-                    <Brain className="w-5 h-5 text-primary" />
+          <section className="space-y-6">
+            <h2 className="text-[11px] font-black text-muted-foreground/40 uppercase tracking-[0.3em] px-4">AI Intelligence</h2>
+            <div className="space-y-4">
+              <div className="flex items-center justify-between p-6 bg-white rounded-[32px] border border-primary/5 premium-shadow">
+                <div className="flex items-center gap-5">
+                  <div className="w-12 h-12 rounded-[20px] bg-primary/5 flex items-center justify-center">
+                    <Brain className="w-6 h-6 text-primary" />
                   </div>
-                  <Label className="font-bold text-base">Response Style</Label>
+                  <Label className="font-black text-lg tracking-tight">Response Style</Label>
                 </div>
                 <Select 
                   value={settings.aiStyle} 
                   onValueChange={(val: any) => updateSettings({ aiStyle: val })}
                 >
-                  <SelectTrigger className="w-32 rounded-xl border-border bg-background font-bold text-xs uppercase tracking-wider">
+                  <SelectTrigger className="w-36 h-12 rounded-2xl border-primary/10 bg-background font-black text-[10px] uppercase tracking-widest">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent className="rounded-xl">
-                    <SelectItem value="concise">Concise</SelectItem>
-                    <SelectItem value="detailed">Detailed</SelectItem>
-                    <SelectItem value="evidence">Evidence</SelectItem>
+                  <SelectContent className="rounded-2xl glass border-primary/10">
+                    <SelectItem value="concise" className="font-bold text-xs uppercase tracking-wider">Concise</SelectItem>
+                    <SelectItem value="detailed" className="font-bold text-xs uppercase tracking-wider">Detailed</SelectItem>
+                    <SelectItem value="evidence" className="font-bold text-xs uppercase tracking-wider">Evidence</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
-              <div className="flex items-center justify-between p-5 bg-white rounded-[24px] border border-border premium-shadow">
-                <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 rounded-xl bg-primary/5 flex items-center justify-center">
-                    <Shield className="w-5 h-5 text-primary" />
+              <div className="flex items-center justify-between p-6 bg-white rounded-[32px] border border-primary/5 premium-shadow">
+                <div className="flex items-center gap-5">
+                  <div className="w-12 h-12 rounded-[20px] bg-primary/5 flex items-center justify-center">
+                    <Shield className="w-6 h-6 text-primary" />
                   </div>
-                  <Label className="font-bold text-base">Show Disclaimers</Label>
+                  <Label className="font-black text-lg tracking-tight">Medical Safety</Label>
                 </div>
                 <Switch 
                   checked={settings.showDisclaimers} 
@@ -128,44 +129,44 @@ export function SettingsScreen() {
             </div>
           </section>
 
-          <section className="space-y-4">
-            <h2 className="text-[10px] font-black text-muted-foreground uppercase tracking-[0.2em] px-2">Data & Privacy</h2>
-            <div className="space-y-3">
+          <section className="space-y-6">
+            <h2 className="text-[11px] font-black text-muted-foreground/40 uppercase tracking-[0.3em] px-4">Data & Privacy</h2>
+            <div className="space-y-4">
               <Button 
                 variant="outline" 
                 onClick={handleExport}
-                className="w-full justify-between p-5 h-auto rounded-[24px] border-border bg-white premium-shadow hover:bg-primary/5 group"
+                className="w-full justify-between p-6 h-auto rounded-[32px] border-primary/5 bg-white premium-shadow hover:bg-primary/5 group transition-all duration-500"
               >
-                <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 rounded-xl bg-primary/5 flex items-center justify-center">
-                    <Download className="w-5 h-5 text-primary" />
+                <div className="flex items-center gap-5">
+                  <div className="w-12 h-12 rounded-[20px] bg-primary/5 flex items-center justify-center group-hover:gold-gradient transition-all duration-500">
+                    <Download className="w-6 h-6 text-primary group-hover:text-white transition-colors" />
                   </div>
-                  <span className="font-bold text-base">Export Consultation Data</span>
+                  <span className="font-black text-lg tracking-tight">Export Consultations</span>
                 </div>
-                <ChevronRight className="w-5 h-5 text-muted-foreground/30 group-hover:text-primary transition-colors" />
+                <ChevronRight className="w-6 h-6 text-muted-foreground/20 group-hover:text-primary group-hover:translate-x-1 transition-all duration-500" />
               </Button>
               <Button 
                 variant="outline" 
                 onClick={handleSignOut}
-                className="w-full justify-between p-5 h-auto rounded-[24px] border-border bg-white premium-shadow hover:bg-destructive/5 group text-destructive hover:text-destructive"
+                className="w-full justify-between p-6 h-auto rounded-[32px] border-primary/5 bg-white premium-shadow hover:bg-destructive/5 group text-destructive hover:text-destructive transition-all duration-500"
               >
-                <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 rounded-xl bg-destructive/5 flex items-center justify-center">
-                    <LogOut className="w-5 h-5 text-destructive" />
+                <div className="flex items-center gap-5">
+                  <div className="w-12 h-12 rounded-[20px] bg-destructive/5 flex items-center justify-center group-hover:bg-destructive group-hover:text-white transition-all duration-500">
+                    <LogOut className="w-6 h-6 text-destructive group-hover:text-white transition-colors" />
                   </div>
-                  <span className="font-bold text-base">Sign Out</span>
+                  <span className="font-black text-lg tracking-tight">Sign Out</span>
                 </div>
-                <ChevronRight className="w-5 h-5 text-destructive/30 group-hover:text-destructive transition-colors" />
+                <ChevronRight className="w-6 h-6 text-destructive/20 group-hover:text-destructive group-hover:translate-x-1 transition-all duration-500" />
               </Button>
             </div>
           </section>
 
-          <div className="pt-10 text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/5 rounded-full text-primary mb-4">
-              <Info className="w-4 h-4" />
-              <span className="text-[10px] font-black uppercase tracking-widest">Nelson-GPT v1.0.0 Gold</span>
+          <div className="pt-16 text-center">
+            <div className="inline-flex items-center gap-3 px-6 py-3 bg-primary/5 rounded-full text-primary mb-6 border border-primary/10">
+              <Info className="w-5 h-5" />
+              <span className="text-[11px] font-black uppercase tracking-[0.3em]">Nelson-GPT Gold Edition</span>
             </div>
-            <p className="text-[10px] text-muted-foreground/50 font-medium leading-relaxed max-w-xs mx-auto">
+            <p className="text-[11px] text-muted-foreground/30 font-bold leading-relaxed max-w-xs mx-auto uppercase tracking-widest">
               Inspired by the Nelson Textbook of Pediatrics.
               <br />
               © 2025 Nelson-GPT Medical Systems.
