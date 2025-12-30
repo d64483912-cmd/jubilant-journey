@@ -1,0 +1,61 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  settings  Json     @default("{}")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  chats     Chat[]
+  history   History[]
+}
+
+model Chat {
+  id        String    @id @default(uuid())
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title     String    @default("Untitled Chat")
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  messages  Message[]
+  history   History[]
+}
+
+model Message {
+  id        String   @id @default(uuid())
+  chatId    String
+  chat      Chat     @relation(fields: [chatId], references: [id], onDelete: Cascade)
+  sender    String   // 'user' or 'ai'
+  content   String
+  mode      String   // 'academic' or 'clinical'
+  citations Json     @default("[]")
+  createdAt DateTime @default(now())
+}
+
+model NelsonTextbookChunk {
+  id        String   @id @default(uuid())
+  content   String
+  chapter   String
+  pageStart Int?
+  pageEnd   Int?
+  // embedding is handled via raw SQL for pgvector if needed, 
+  // but for now we'll just store the text.
+  createdAt DateTime @default(now())
+}
+
+model History {
+  id           String   @id @default(uuid())
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  chatId       String
+  chat         Chat     @relation(fields: [chatId], references: [id], onDelete: Cascade)
+  lastAccessed DateTime @default(now())
+  isPinned     Boolean  @default(false)
+  isDeleted    Boolean  @default(false)
+}
